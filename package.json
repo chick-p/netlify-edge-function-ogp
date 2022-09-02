@@ -1,0 +1,18 @@
+{
+  "name": "netlify-edge-function-ogp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "netlify dev",
+    "deploy:dev": "netlify deploy --build",
+    "deploy:prod": "npm run deploy:dev -- --prod"
+  },
+  "keywords": [],
+  "author": "chic-p",
+  "license": "MIT",
+  "devDependencies": {
+    "netlify-cli": "^11.5.1"
+  }
+}

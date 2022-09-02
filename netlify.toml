@@ -1,0 +1,7 @@
+[build]
+  command = "echo No build for this site, we are living on the edge"
+  publish = "."
+
+[[edge_functions]]
+  function = "get-meta"
+  path = "/*"
