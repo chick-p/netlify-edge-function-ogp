@@ -4,4 +4,4 @@
 
 [[edge_functions]]
   function = "get-meta"
-  path = "/*"
+  path = "/get-meta*"
