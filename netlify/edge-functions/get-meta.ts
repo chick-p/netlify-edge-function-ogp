@@ -3,6 +3,13 @@ import { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
 
 type Meta = Record<string, string>;
 
+function getIconPath(elements: Array<HTMLLinkElement>) {
+  const iconElement = elements.find((element) =>
+    element.getAttribute("rel")?.includes("icon")
+  );
+  return iconElement ? iconElement.getAttribute("href") : null;
+}
+
 function extractOgp(metaElements: Array<HTMLMetaElement>): Meta {
   return metaElements
     .filter((element: HTMLMetaElement) => element.hasAttribute("property"))
@@ -29,7 +36,14 @@ export default async (
   const resp = await fetch(url);
   const html = await resp.text();
   const document = new DOMParser().parseFromString(html, "text/html");
-  const ogp = extractOgp([...document?.querySelectorAll("meta")]);
+  let ogp = extractOgp([...document?.querySelectorAll("meta")]);
+  const icon = getIconPath([...document?.querySelectorAll("link")]);
+  if (icon) {
+    ogp = {
+      ...ogp,
+      icon,
+    };
+  }
   const response = await context.json(ogp);
   response.headers.set("Access-Control-Allow-Origin", "*");
   response.headers.set("Access-Control-Allow-Methods", "GET");
